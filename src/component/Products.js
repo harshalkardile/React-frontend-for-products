@@ -49,10 +49,26 @@ const Products = () => {
                   variant="top"
                   src={item.images[0] || "holder.js/100px180"}
                   alt={item.title}
+                  style={{
+                    width: "100%",
+                    height: "200px",
+                    objectFit: "cover",
+                  }}
                 />
                 <Card.Body>
                   <Card.Title>{item.title}</Card.Title>
-                  <Card.Text>{item.description}</Card.Text>
+                  <Card.Text
+                    style={{
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      height: "3em", // Adjust this value based on your font size and line height
+                    }}
+                  >
+                    {item.description}
+                  </Card.Text>
                   <Card.Text>{item.category}</Card.Text>
                   <Card.Text>Price: ${item.price.toFixed(2)}</Card.Text>
                   <Button

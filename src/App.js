@@ -1,11 +1,10 @@
-
-import './App.css';
+import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import NavBar from './component/NavBar';
-import Home from './component/Home';
-import Products from './component/Products';
-import Product from './component/Product';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import NavBar from "./component/NavBar";
+import Home from "./component/Home";
+import Products from "./component/Products";
+import Product from "./component/Product";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -15,10 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
-          <Route
-            path="/product/:id" element={ <Product /> }
-          />
-          
+          <Route path="/products/:id" element={<Product />} />
         </Routes>
       </BrowserRouter>
     </div>
