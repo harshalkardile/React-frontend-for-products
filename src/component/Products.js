@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { baseurl } from "./BaseUrl";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -9,13 +9,22 @@ import Col from "react-bootstrap/Col";
 
 const Products = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        let result = await fetch(`${baseurl}/products/`);
+        const searchParams = new URLSearchParams(location.search);
+        const category = searchParams.get("category");
+        let url = `${baseurl}/products/`;
+
+        if (category) {
+          url = `${baseurl}/products/category/${category}`;
+        }
+
+        let result = await fetch(url);
         result = await result.json();
         console.log(result);
         setProducts(result);
@@ -27,10 +36,10 @@ const Products = () => {
     };
 
     getProducts();
-  }, []);
+  }, [location.search]);
 
-    function updateProduct(productId) {
-        console.log(productId);
+  function updateProduct(productId) {
+    console.log(productId);
     navigate(`/products/${productId}`);
   }
 
@@ -51,7 +60,7 @@ const Products = () => {
                   alt={item.title}
                   style={{
                     width: "100%",
-                    height: "200px",
+                    height: "300px",
                     objectFit: "cover",
                   }}
                 />
@@ -64,7 +73,7 @@ const Products = () => {
                       WebkitBoxOrient: "vertical",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
-                      height: "3em", // Adjust this value based on your font size and line height
+                      height: "3em",
                     }}
                   >
                     {item.description}
